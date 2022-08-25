@@ -1,12 +1,12 @@
-import * as THREE from '/node_modules/three/build/three.module.js';
+import * as THREE from '/swarm/node_modules/three/build/three.module.js';
 
-import { TWEEN } from '/node_modules/three/examples/jsm/libs/tween.module.min.js';
-import { OrbitControls } from '/node_modules/three/examples/jsm/controls/OrbitControls.js';
-import { EffectComposer } from '/node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from '/node_modules/three/examples/jsm/postprocessing/RenderPass.js';
-import { ShaderPass } from '/node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
-import { UnrealBloomPass } from '/node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { CSS3DRenderer, CSS3DObject } from '/node_modules/three/examples/jsm/renderers/CSS3DRenderer.js';
+import { TWEEN } from '/swarm/node_modules/three/examples/jsm/libs/tween.module.min.js';
+import { OrbitControls } from '/swarm/node_modules/three/examples/jsm/controls/OrbitControls.js';
+import { EffectComposer } from '/swarm/node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from '/swarm/node_modules/three/examples/jsm/postprocessing/RenderPass.js';
+import { ShaderPass } from '/swarm/node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
+import { UnrealBloomPass } from '/swarm/node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+
 
 // const table = [
 //   'H', 'Hydrogen', '1.00794', 1, 1,

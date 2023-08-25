@@ -4,7 +4,8 @@
 		<title>Swarm</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-
+		<link rel="dns-prefetch" href="//fonts.googleapis.com">
+		<link rel="stylesheet" id="wpb-google-fonts-css" href="https://fonts.googleapis.com/css2?family=Share+Tech&amp;display=swap&amp;ver=6.2.2" type="text/css" media="all">
 		<style>
 			a {
 				color: #8ff;
@@ -62,18 +63,116 @@
 					font-size: 12px;
 					color: rgba(127,255,255,0.75);
 				}
+				h1 {
+				    color: rgba(188,255,255,1);
+				    text-shadow: 3px 3px 10px  #7fffff;
+				    font-family: 'Share Tech', sans-serif;
+				    text-decoration: none;
+				    font-weight: 700;
+				    font-style: italic;
+				    letter-spacing: 1.25px;
+				    font-size: 2.75em;
+						position: absolute;
+						left: 40px;
+						position: absolute;
+						background: -webkit-linear-gradient(#d0ffff,#339696);
+					  -webkit-background-clip: text;
+					  -webkit-text-fill-color: transparent;
+			}
+			/*=================Control Bar=================*/
+			body .lil-gui .controller.number .fill{
+				background: rgb(45 200 200 / 50%);
+			}
 
+			body .lil-gui{
+				--font-size: 14px;
+    		--input-font-size: 14px;
+			}
+
+			body {
+				--font-size: 14px;
+    		--input-font-size: 14px;
+			}
+			body .lil-gui *{
+				margin: 1px 2px;
+			}
+			body .lil-gui .title{
+				margin: 1px 0px;
+				text-transform: capitalize;
+			}
+			body .lil-gui.root>.title{
+				border-radius: 10px;
+			}
+			body .lil-gui.root{
+				border-radius: 10px;
+				box-shadow: 0 5px 10px #7fffff, 0 0 0 5px #ffffffeb;
+				margin-top: 10px;
+			}
+			.lil-gui.root>.children>.lil-gui>.title {
+			    border-width: 0;
+			    border-bottom: 1px solid #7fffff80;
+
+			    border-top: 1px solid #7fffff80;
+
+			}
+			/*===============CheckBox=================*/
+			body .lil-gui input[type="checkbox"] {
+				appearance: none;
+		    background-color: rgb(45 200 200 / 50%);
+		    margin: 10px 5px;
+		    font: inherit;
+		    color: #ffffffeb;
+		    width: 22px;
+		    height: 22px;
+		    border-radius: 5px;
+		    transform: translateY(-0.075em);
+		    display: inline-grid;
+		    place-content: center;
+		    border: 1px solid #f0f0f0;
+		    box-shadow: 0 2px 3px #7fffff, 0 0 0 2px #ffffffeb !important;
+			}
+
+
+			body .lil-gui input[type="checkbox"]::before {
+			  content: "";
+				width: 16px;
+		    height: 16px;
+			  position: relative;
+			  transform: scale(0);
+			  transition: 120ms transform ease-in-out;
+			  box-shadow: inset 1em 1em #ffffffeb;
+			  background-color: #ffffffeb;
+			  transform-origin: bottom left;
+			  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+			  top: -25%;
+			  right: -25%;
+			}
+
+			body .lil-gui input[type="checkbox"]:checked::before {
+			  transform: scale(1);
+			  right: 0;
+			  top: 0;
+			}
+
+			/*=================Button==================*/
 			button {
 				color: rgba(127,255,255,0.75);
-				background: transparent;
+				background: #00000090;
 				outline: 1px solid rgba(127,255,255,0.75);
 				border: 0px;
 				padding: 5px 10px;
 				cursor: pointer;
+				border-radius: 6px;
+		    box-shadow: 0 3px 6px #7fffff, 0 0 0 2px #ffffffeb;
+		    margin: 6px 3px;
 			}
 
 			button:hover {
 				background-color: rgba(0,255,255,0.5);
+			}
+			button.selected {
+				background-color: rgba(0,255,255,0.75);
+				color: white;
 			}
 
 			button:active {
@@ -84,6 +183,7 @@
 	</head>
 	<body>
 
+		<h1> Light Swarm </h1>
 
 		<div id="container"></div>
 		<div id="menu">
@@ -93,6 +193,9 @@
 			<button id="helix">HELIX</button>
 			<button id="doubleHelix">DOUBLE HELIX</button>
 			<button id="grid">GRID</button>
+			<br>
+			<button id="slope1">SLOPE 1</button>
+			<button id="slope2">SLOPE 2</button>
 		</div>
 
 		<!-- Import maps polyfill -->

@@ -5,135 +5,15 @@ import { OrbitControls } from '/swarm/node_modules/three/examples/jsm/controls/O
 import { EffectComposer } from '/swarm/node_modules/three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from '/swarm/node_modules/three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from '/swarm/node_modules/three/examples/jsm/postprocessing/ShaderPass.js';
-import { UnrealBloomPass } from '/swarm/node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { UnrealBloomPass } from '/swarm/node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js';//'/swarm/node_modules/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { GUI } from '/swarm/node_modules/three/examples/jsm/libs/lil-gui.module.min.js';
 
-
-// const table = [
-//   'H', 'Hydrogen', '1.00794', 1, 1,
-//   'He', 'Helium', '4.002602', 18, 1,
-//   'Li', 'Lithium', '6.941', 1, 2,
-//   'Be', 'Beryllium', '9.012182', 2, 2,
-//   'B', 'Boron', '10.811', 13, 2,
-//   'C', 'Carbon', '12.0107', 14, 2,
-//   'N', 'Nitrogen', '14.0067', 15, 2,
-//   'O', 'Oxygen', '15.9994', 16, 2,
-//   'F', 'Fluorine', '18.9984032', 17, 2,
-//   'Ne', 'Neon', '20.1797', 18, 2,
-//   'Na', 'Sodium', '22.98976...', 1, 3,
-//   'Mg', 'Magnesium', '24.305', 2, 3,
-//   'Al', 'Aluminium', '26.9815386', 13, 3,
-//   'Si', 'Silicon', '28.0855', 14, 3,
-//   'P', 'Phosphorus', '30.973762', 15, 3,
-//   'S', 'Sulfur', '32.065', 16, 3,
-//   'Cl', 'Chlorine', '35.453', 17, 3,
-//   'Ar', 'Argon', '39.948', 18, 3,
-//   'K', 'Potassium', '39.948', 1, 4,
-//   'Ca', 'Calcium', '40.078', 2, 4,
-//   'Sc', 'Scandium', '44.955912', 3, 4,
-//   'Ti', 'Titanium', '47.867', 4, 4,
-//   'V', 'Vanadium', '50.9415', 5, 4,
-//   'Cr', 'Chromium', '51.9961', 6, 4,
-//   'Mn', 'Manganese', '54.938045', 7, 4,
-//   'Fe', 'Iron', '55.845', 8, 4,
-//   'Co', 'Cobalt', '58.933195', 9, 4,
-//   'Ni', 'Nickel', '58.6934', 10, 4,
-//   'Cu', 'Copper', '63.546', 11, 4,
-//   'Zn', 'Zinc', '65.38', 12, 4,
-//   'Ga', 'Gallium', '69.723', 13, 4,
-//   'Ge', 'Germanium', '72.63', 14, 4,
-//   'As', 'Arsenic', '74.9216', 15, 4,
-//   'Se', 'Selenium', '78.96', 16, 4,
-//   'Br', 'Bromine', '79.904', 17, 4,
-//   'Kr', 'Krypton', '83.798', 18, 4,
-//   'Rb', 'Rubidium', '85.4678', 1, 5,
-//   'Sr', 'Strontium', '87.62', 2, 5,
-//   'Y', 'Yttrium', '88.90585', 3, 5,
-//   'Zr', 'Zirconium', '91.224', 4, 5,
-//   'Nb', 'Niobium', '92.90628', 5, 5,
-//   'Mo', 'Molybdenum', '95.96', 6, 5,
-//   'Tc', 'Technetium', '(98)', 7, 5,
-//   'Ru', 'Ruthenium', '101.07', 8, 5,
-//   'Rh', 'Rhodium', '102.9055', 9, 5,
-//   'Pd', 'Palladium', '106.42', 10, 5,
-//   'Ag', 'Silver', '107.8682', 11, 5,
-//   'Cd', 'Cadmium', '112.411', 12, 5,
-//   'In', 'Indium', '114.818', 13, 5,
-//   'Sn', 'Tin', '118.71', 14, 5,
-//   'Sb', 'Antimony', '121.76', 15, 5,
-//   'Te', 'Tellurium', '127.6', 16, 5,
-//   'I', 'Iodine', '126.90447', 17, 5,
-//   'Xe', 'Xenon', '131.293', 18, 5,
-//   'Cs', 'Caesium', '132.9054', 1, 6,
-//   'Ba', 'Barium', '132.9054', 2, 6,
-//   'La', 'Lanthanum', '138.90547', 4, 9,
-//   'Ce', 'Cerium', '140.116', 5, 9,
-//   'Pr', 'Praseodymium', '140.90765', 6, 9,
-//   'Nd', 'Neodymium', '144.242', 7, 9,
-//   'Pm', 'Promethium', '(145)', 8, 9,
-//   'Sm', 'Samarium', '150.36', 9, 9,
-//   'Eu', 'Europium', '151.964', 10, 9,
-//   'Gd', 'Gadolinium', '157.25', 11, 9,
-//   'Tb', 'Terbium', '158.92535', 12, 9,
-//   'Dy', 'Dysprosium', '162.5', 13, 9,
-//   'Ho', 'Holmium', '164.93032', 14, 9,
-//   'Er', 'Erbium', '167.259', 15, 9,
-//   'Tm', 'Thulium', '168.93421', 16, 9,
-//   'Yb', 'Ytterbium', '173.054', 17, 9,
-//   'Lu', 'Lutetium', '174.9668', 18, 9,
-//   'Hf', 'Hafnium', '178.49', 4, 6,
-//   'Ta', 'Tantalum', '180.94788', 5, 6,
-//   'W', 'Tungsten', '183.84', 6, 6,
-//   'Re', 'Rhenium', '186.207', 7, 6,
-//   'Os', 'Osmium', '190.23', 8, 6,
-//   'Ir', 'Iridium', '192.217', 9, 6,
-//   'Pt', 'Platinum', '195.084', 10, 6,
-//   'Au', 'Gold', '196.966569', 11, 6,
-//   'Hg', 'Mercury', '200.59', 12, 6,
-//   'Tl', 'Thallium', '204.3833', 13, 6,
-//   'Pb', 'Lead', '207.2', 14, 6,
-//   'Bi', 'Bismuth', '208.9804', 15, 6,
-//   'Po', 'Polonium', '(209)', 16, 6,
-//   'At', 'Astatine', '(210)', 17, 6,
-//   'Rn', 'Radon', '(222)', 18, 6,
-//   'Fr', 'Francium', '(223)', 1, 7,
-//   'Ra', 'Radium', '(226)', 2, 7,
-//   'Ac', 'Actinium', '(227)', 4, 10,
-//   'Th', 'Thorium', '232.03806', 5, 10,
-//   'Pa', 'Protactinium', '231.0588', 6, 10,
-//   'U', 'Uranium', '238.02891', 7, 10,
-//   'Np', 'Neptunium', '(237)', 8, 10,
-//   'Pu', 'Plutonium', '(244)', 9, 10,
-//   'Am', 'Americium', '(243)', 10, 10,
-//   'Cm', 'Curium', '(247)', 11, 10,
-//   'Bk', 'Berkelium', '(247)', 12, 10,
-//   'Cf', 'Californium', '(251)', 13, 10,
-//   'Es', 'Einstenium', '(252)', 14, 10,
-//   'Fm', 'Fermium', '(257)', 15, 10,
-//   'Md', 'Mendelevium', '(258)', 16, 10,
-//   'No', 'Nobelium', '(259)', 17, 10,
-//   'Lr', 'Lawrencium', '(262)', 18, 10,
-//   'Rf', 'Rutherfordium', '(267)', 4, 7,
-//   'Db', 'Dubnium', '(268)', 5, 7,
-//   'Sg', 'Seaborgium', '(271)', 6, 7,
-//   'Bh', 'Bohrium', '(272)', 7, 7,
-//   'Hs', 'Hassium', '(270)', 8, 7,
-//   'Mt', 'Meitnerium', '(276)', 9, 7,
-//   'Ds', 'Darmstadium', '(281)', 10, 7,
-//   'Rg', 'Roentgenium', '(280)', 11, 7,
-//   'Cn', 'Copernicium', '(285)', 12, 7,
-//   'Nh', 'Nihonium', '(286)', 13, 7,
-//   'Fl', 'Flerovium', '(289)', 14, 7,
-//   'Mc', 'Moscovium', '(290)', 15, 7,
-//   'Lv', 'Livermorium', '(293)', 16, 7,
-//   'Ts', 'Tennessine', '(294)', 17, 7,
-//   'Og', 'Oganesson', '(294)', 18, 7
-// ];
 
 let camera, scene, renderer;
 let controls;
 
 const objects = [];
-const targets = { sphere: [], doughnut:[], helix: [], doubleHelix:[], grid: [] };
+const targets = { sphere: [], doughnut:[], helix: [], doubleHelix:[], grid: [], slope1: [], slope2: [] };
 const darkMaterial = new THREE.MeshBasicMaterial( { color: 'black' } );
 const materials = {};
 let   renderScene,bloomPass,bloomComposer,finalPass,finalComposer
@@ -147,6 +27,7 @@ const params = {
   bloomStrength: 5,
   bloomThreshold: 0,
   bloomRadius: 0,
+  animatedPattern: false,
   scene: 'Scene with Glow'
 };
 init();
@@ -261,9 +142,9 @@ function init() {
     for (let slice = 0; slice<sl; slice++){
       phi = dp * slice
       const object = new THREE.Object3D();
-      object.position.x = Math.cos(theta) * (outerR + Math.cos(phi) * innerR)
-      object.position.y = Math.sin(theta) * (outerR + Math.cos(phi) * innerR)
-      object.position.z = Math.sin(phi) * innerR
+      object.position.x = 2* Math.cos(theta) * (outerR + Math.cos(phi) * innerR)
+      object.position.y = 2* Math.sin(theta) * (outerR + Math.cos(phi) * innerR)
+      object.position.z = 2* Math.sin(phi) * innerR
       vector.x = object.position.x * 2;
       vector.y = object.position.y;
       vector.z = object.position.z * 2;
@@ -273,14 +154,6 @@ function init() {
 
       targets.doughnut.push( object );
     }
-
-
-
-    // vector.copy( object.position ).multiplyScalar( 2 );
-    //
-    // object.lookAt( vector );
-    //
-    // targets.doughnut.push( object );
 
   }
 
@@ -297,9 +170,9 @@ function init() {
     object.position.setFromCylindricalCoords( 900, theta, y );
 
     vector.x = object.position.x * 2;
-    vector.y = object.position.y;
+    vector.y = object.position.y * 2;
     vector.z = object.position.z * 2;
-
+    object.position.y = object.position.y*1.5
     object.lookAt( vector );
 
     targets.helix.push( object );
@@ -311,7 +184,7 @@ function init() {
 
     const theta = i * 0.175 + Math.PI;
     const theta_alt = i * 0.175;
-    const y = - ( i * 8 ) + 450;
+    const y = - ( i * 16 ) + 900;
 
     const object = new THREE.Object3D();
 
@@ -324,9 +197,12 @@ function init() {
     else{
       object.position.setFromCylindricalCoords( 400, theta_alt, y );
     }
-    vector.x = object.position.x/2
-    vector.y = object.position.y
-    vector.z = object.position.z *2;
+    object.position.x = object.position.x*1.5
+    object.position.z = object.position.z*1.5
+    object.position.y = object.position.y*0.75
+    // vector.x = object.position.x*4
+    // vector.y = object.position.y*4
+    // vector.z = object.position.z *10;
 
     object.lookAt( vector );
 
@@ -334,25 +210,51 @@ function init() {
 
   }
   // grid
-
+  //console.log(objects.length);
   for ( let i = 0; i < objects.length; i ++ ) {
 
     const object = new THREE.Object3D();
 
-    object.position.x = ( ( i % 5 ) * 400 ) - 800;
-    object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
-    object.position.z = ( Math.floor( i / 25 ) ) * 1000 - 2000;
+    object.position.x = ( ( i % 4 ) * 400 ) - 800;
+    object.position.y = ( - ( Math.floor( i / 4 ) % 4 ) * 400 ) + 800;
+    object.position.z = ( Math.floor( i / 25 ) ) * 500 - 1000;
 
     targets.grid.push( object );
 
   }
 
-  //
+
+  // slope1
+
+  for (let i = 0; i < objects.length; i++) {
+    const object = new THREE.Object3D();
+
+    const row = Math.floor(i / 25); // Calculate the current row
+
+    // Calculate x and z positions based on row and position in row
+    object.position.x = (i % 25) * 50 - 600; // Adjust the multiplier to set the spacing between objects along x
+    object.position.y = -row * 40 + 80; // Spacing between rows
+    object.position.z = row * 100 - 200; // Spacing between rows along z
+
+    targets.slope1.push(object);
+  }
 
 
-  //document.getElementById( 'container' ).appendChild( renderer.domElement );
+  // slope2
+  for (let i = 0; i < objects.length; i++) {
+    const object = new THREE.Object3D();
 
-  //
+    const row = Math.floor(i / 4); // Calculate the current row
+    const column = i % 4; // Calculate the current column
+
+    // Calculate x and z positions based on column and row
+    object.position.x = -row * 50 + 600; // Spacing between rows along y
+    object.position.y = column * 40 - 80; // Spacing between columns along x
+    object.position.z = -column * 100 + 100; // Spacing between rows along z
+
+  targets.slope2.push(object);
+}
+
 
   controls = new OrbitControls( camera, renderer.domElement );
   // controls.maxPolarAngle = Math.PI * 0.5;
@@ -367,23 +269,123 @@ function init() {
   //
   // } );
 
+  const gui = new GUI();
+  //console.log(gui);
+	const bloomFolder = gui.addFolder( 'bloom' );
+  //console.log(bloomFolder.add( params, 'bloomRadius', 0.0, 1.0 ));
+  //console.log(bloomFolder);
+	bloomFolder.add( params, 'bloomThreshold', 0.0, 2.0 ).onChange( function ( value ) {
+
+		bloomPass.threshold = Number( value );
+		render();
+
+	} );
+
+	bloomFolder.add( params, 'bloomStrength', 0.0, 10 ).onChange( function ( value ) {
+
+		bloomPass.strength = Number( value );
+		render();
+
+	} );
+  //
+	bloomFolder.add( params, 'bloomRadius', 0.0, 2.0 ).step( 0.01 ).onChange( function ( value ) {
+
+		bloomPass.radius = Number( value );
+		render();
+
+	} );
+
+  bloomFolder.add( params, 'animatedPattern', true, false).onChange( function ( value ) {
+
+		//bloomPass.radius = Number( value );
+    const checkboxContainer = document.querySelector('.controller.boolean');
+    const checkbox = checkboxContainer.querySelector('input[type="checkbox"]');
+    if (checkbox.checked) {
+      controls.autoRotate = true
+      const selected = document.querySelector('#menu .selected');
+      transform( targets[selected.id], 1000 );
+
+    }
+    else{
+      controls.autoRotate = false
+      TWEEN.removeAll();
+    }
+      // const selected = document.querySelector('#menu .selected');
+      // transform( targets[selected.id], 1000 );
+
+
+    // if(selected.id == 'slope'){
+    //   slopePattern(2000,value);
+    // }
+    // else{
+    //   //console.log(targets[selected.id]);
+    //   transform( targets[selected.id], 1000 );
+    //   //animatePattern(2000,value);
+    // }
+
+	} );
+  //
+	const toneMappingFolder = gui.addFolder( 'tone mapping' );
+
+	toneMappingFolder.add( params, 'exposure', 0.1, 1 ).onChange( function ( value ) {
+
+		renderer.toneMappingExposure = Math.pow( value, 4.0 );
+		render();
+
+	} );
+
+  const menuButtons = document.querySelectorAll('#menu button');
+  const buttonSlope1 = document.getElementById( 'slope1' );
+  buttonSlope1.addEventListener( 'click', function () {
+    //console.log(TWEEN);
+
+    menuButtons.forEach(button => {
+      button.classList.remove('selected');
+    });
+    this.classList.add('selected');
+    transform( targets.slope1, 2000 );
+  } );
+  const buttonSlope2 = document.getElementById( 'slope2' );
+  buttonSlope2.addEventListener( 'click', function () {
+    //console.log(TWEEN);
+
+    menuButtons.forEach(button => {
+      button.classList.remove('selected');
+    });
+    this.classList.add('selected');
+    transform( targets.slope2, 2000 );
+  } );
+
   const buttonSphere = document.getElementById( 'sphere' );
   buttonSphere.addEventListener( 'click', function () {
+    //console.log(TWEEN);
 
+    menuButtons.forEach(button => {
+      button.classList.remove('selected');
+    });
+    this.classList.add('selected');
     transform( targets.sphere, 2000 );
-
   } );
 
   const buttonDoughnut = document.getElementById( 'doughnut' );
   buttonDoughnut.addEventListener( 'click', function () {
 
-    transform( targets.doughnut, 2000 );
 
+    menuButtons.forEach(button => {
+      button.classList.remove('selected');
+    });
+    this.classList.add('selected');
+    transform( targets.doughnut, 2000 );
   } );
 
   const buttonHelix = document.getElementById( 'helix' );
   buttonHelix.addEventListener( 'click', function () {
 
+
+    menuButtons.forEach(button => {
+      button.classList.remove('selected');
+    });
+    this.classList.add('selected');
     transform( targets.helix, 2000 );
 
   } );
@@ -391,6 +393,11 @@ function init() {
   const buttonDoubleHelix = document.getElementById( 'doubleHelix' );
   buttonDoubleHelix.addEventListener( 'click', function () {
 
+
+    menuButtons.forEach(button => {
+      button.classList.remove('selected');
+    });
+    this.classList.add('selected');
     transform( targets.doubleHelix, 2000 );
 
   } );
@@ -398,17 +405,169 @@ function init() {
   const buttonGrid = document.getElementById( 'grid' );
   buttonGrid.addEventListener( 'click', function () {
 
+
+    menuButtons.forEach(button => {
+      button.classList.remove('selected');
+    });
+    this.classList.add('selected');
     transform( targets.grid, 2000 );
 
   } );
 
   transform( targets.sphere, 2000 );
-
+  buttonSphere.classList.add('selected');
   //
 
   window.addEventListener( 'resize', onWindowResize );
 
 }
+
+
+const FinalPosition = 500;
+
+function lerp(a, b, t) {
+  return a + t * (b - a);
+}
+function slopePattern(duration, run) {
+  if (run) {
+    controls.autoRotate = true
+    TWEEN.removeAll();
+
+
+    for (let i = 0; i < objects.length; i++) {
+      const _object = objects[i]; // Define _object here
+
+      // Define the path as a list of (x, y) coordinates
+      const fowardPath = [
+        { x: _object.position.x, y: _object.position.y+0, z: _object.position.z-0 },
+        { x: _object.position.x, y: _object.position.y+0, z: _object.position.z-FinalPosition*0.02 },
+        { x: _object.position.x, y: _object.position.y+FinalPosition*0.02, z: _object.position.z-FinalPosition*0.1 },
+        { x: _object.position.x, y: _object.position.y+FinalPosition*0.1, z: _object.position.z-FinalPosition*1},
+        { x: _object.position.x, y: _object.position.y+FinalPosition*1, z: _object.position.z-FinalPosition*1}
+      ];
+      const reversePath = [
+        { x: _object.position.x, y: _object.position.y+FinalPosition*1, z: _object.position.z-FinalPosition*1 },
+        { x: _object.position.x, y:  _object.position.y+FinalPosition*0.1, z: _object.position.z-FinalPosition*1 },
+        { x: _object.position.x, y:  _object.position.y+FinalPosition*0.02, z: _object.position.z-FinalPosition*0.1 },
+        { x: _object.position.x, y: _object.position.y+0, z: _object.position.z-FinalPosition*0.02},
+        { x: _object.position.x, y: _object.position.y+0, z: _object.position.z-0}
+      ];
+
+      function updateObjectReversePosition(progress) {
+       const step = Math.floor(progress * (reversePath.length - 1)); // Calculate the step based on progress
+       const nextStep = Math.min(step + 1, reversePath.length - 1);
+       const interpolatedProgress = (progress * (reversePath.length - 1)) - step;
+       //console.log(step,nextStep,interpolatedProgress,path.length);
+       _object.position.x = lerp(reversePath[step].x, reversePath[nextStep].x, interpolatedProgress);
+       _object.position.y = lerp(reversePath[step].y, reversePath[nextStep].y, interpolatedProgress);
+       _object.position.z = lerp(reversePath[step].z, reversePath[nextStep].z, interpolatedProgress);
+     }
+
+     function updateObjectForwardPosition(progress) {
+      const step = Math.floor(progress * (fowardPath.length - 1)); // Calculate the step based on progress
+      const nextStep = Math.min(step + 1, fowardPath.length - 1);
+      const interpolatedProgress = (progress * (fowardPath.length - 1)) - step;
+      //console.log(step,nextStep,interpolatedProgress,path.length);
+      _object.position.x = lerp(fowardPath[step].x, fowardPath[nextStep].x, interpolatedProgress);
+      _object.position.y = lerp(fowardPath[step].y, fowardPath[nextStep].y, interpolatedProgress);
+      _object.position.z = lerp(fowardPath[step].z, fowardPath[nextStep].z, interpolatedProgress);
+     }
+
+      const forwardTween = new TWEEN.Tween({ progress: 0 })
+        .to({ progress: 1 }, duration+(i*100) )
+        .easing(TWEEN.Easing.Exponential.InOut)
+        .onUpdate(function () {
+          //console.log(this,this._object,this.object,this.progress);
+          updateObjectForwardPosition(this._object.progress); // Pass progress explicitly
+        })
+        .onComplete(() => {
+          reverseTween.start();
+        })
+
+        const reverseTween = new TWEEN.Tween({ progress: 0 })
+          .to({ progress: 1 }, duration+(i*100) )
+          .easing(TWEEN.Easing.Exponential.InOut)
+          .onUpdate(function () {
+            //console.log(this,this._object,this.object,this.progress);
+            updateObjectReversePosition(this._object.progress); // Pass progress explicitly
+          })
+          // .onComplete(() => {
+          //   forwardTween.start();
+          // })
+      //tween._object = _object; // Add this line to attach the object
+      forwardTween.start();
+    }
+
+    new TWEEN.Tween(this)
+      .to({}, (duration+(objects.length*100))*2)
+      .onUpdate(render)
+      .onComplete(() => {
+        slopePattern(duration, true);
+      })
+      .start();
+  } else {
+    TWEEN.removeAll();
+    controls.autoRotate = false;
+  }
+}
+
+
+
+
+
+
+
+
+//DON NOT DELETE
+function animatePattern(duration, run) {
+  if (run) {
+    TWEEN.removeAll();
+    controls.autoRotate = true
+    for (let i = 0; i < objects.length; i++) {
+      const object = objects[i];
+
+      const startPosition = {
+        x: object.position.x,
+        y: object.position.y,
+        z: object.position.z
+      };
+
+      const targetPosition = {
+        x: object.position.x / 10,
+        y: object.position.y / 10,
+        z: object.position.z / 10
+      };
+
+      const forwardTween = new TWEEN.Tween(object.position)
+        .to(targetPosition, duration)
+        .easing(TWEEN.Easing.Exponential.InOut)
+        .onComplete(() => {
+          reverseTween.start();
+        });
+
+      const reverseTween = new TWEEN.Tween(object.position)
+        .to(startPosition, duration)
+        .easing(TWEEN.Easing.Exponential.InOut)
+        .onComplete(() => {
+          forwardTween.start();
+        });
+
+      forwardTween.start();
+    }
+
+    new TWEEN.Tween(this)
+      .to({}, duration * 2)
+      .onUpdate(render)
+      .onComplete(() => {
+        animatePattern(duration, true);
+      })
+      .start();
+  } else {
+    TWEEN.removeAll();
+    controls.autoRotate = false
+  }
+}
+
 
 function transform( targets, duration ) {
 
@@ -432,6 +591,40 @@ function transform( targets, duration ) {
       .easing( TWEEN.Easing.Exponential.InOut )
       .start();
 
+  }
+
+  const checkboxContainer = document.querySelector('.controller.boolean');
+  const checkbox = checkboxContainer.querySelector('input[type="checkbox"]');
+  if (checkbox.checked) {
+    //console.log('Checkbox is checked');
+    const selected = document.querySelector('#menu .selected');
+    //console.log(selected);
+    if(selected.id == 'slope1'||selected.id == 'slope2'){
+      new TWEEN.Tween( this )
+        .to( {}, duration * 2 )
+        .onUpdate( render )
+        .onComplete(() => {
+          slopePattern(2000, true);
+        })
+        .start();
+
+    }
+    else{
+      new TWEEN.Tween( this )
+        .to( {}, duration * 2 )
+        .onUpdate( render )
+        .onComplete(() => {
+          animatePattern(2000, true);
+        })
+        .start();
+
+    }
+  } else {
+
+    new TWEEN.Tween( this )
+      .to( {}, duration * 2 )
+      .onUpdate( render )
+      .start();
   }
 
   new TWEEN.Tween( this )
